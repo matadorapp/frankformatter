@@ -1,0 +1,9 @@
+.gitencrypt/clean_filter_openssl
+.gitencrypt/diff_filter_openssl
+.gitencrypt/smudge_filter_openssl
+encryption.sh
+.gitattributes
+.idea/
+target/
+.mvn/
+./console-formatter.iml
