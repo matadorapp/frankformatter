@@ -17,6 +17,7 @@ test shows that I have not understood width versus padding in the task :-)
 ## Test, and run from target 
 ````
 $> mvn clean test
+$> mvn package 
 $> java -jar ./target/formatter-0.0.1.jar left 15
 ````
-time spent, 130 min...
+

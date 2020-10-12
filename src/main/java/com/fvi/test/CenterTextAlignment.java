@@ -1,5 +1,9 @@
 package com.fvi.test;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CenterTextAlignment extends TextAlignmentBase {
 
     public CenterTextAlignment(int columnWidth) {
@@ -7,23 +11,37 @@ public class CenterTextAlignment extends TextAlignmentBase {
     }
 
     @Override
-    public String format(String s) {
-        return String.format("|%s|", center(s, columnWidth, ' '));
+    public String format(String input) {
+        String[] parts = input.split("(?<=\\G.{" + columnWidth + "})");
+        List<String> list = Arrays.asList(parts);
+
+        List<String> formatted = list.stream().map(e ->
+                center(e, columnWidth))
+                .collect(Collectors.toList());
+
+        return String.join("\n", formatted);
     }
 
-    // google solution
-    private String center(String s, int size, char pad) {
-        if (s == null || size <= s.length())
-            return s;
-
-        StringBuilder sb = new StringBuilder(size);
-        for (int i = 0; i < (size - s.length()) / 2; i++) {
-            sb.append(pad);
+    private String center(String str, final int size) {
+        if (str == null || size <= 0) {
+            return str;
         }
-        sb.append(s);
-        while (sb.length() < size) {
-            sb.append(pad);
+        final int strLen = str.length();
+        final int pads = size - strLen;
+        if (pads <= 0) {
+            return str;
         }
-        return sb.toString();
+        str = leftPad(str, strLen + pads / 2);
+        str = rightPad(str, size);
+        return str;
     }
+
+    private String leftPad(String inputString, int length) {
+        return String.format("%1$" + length + "s", inputString);
+    }
+
+    private String rightPad(String inputString, int length) {
+        return String.format("%1$-" + length + "s", inputString);
+    }
+
 }
