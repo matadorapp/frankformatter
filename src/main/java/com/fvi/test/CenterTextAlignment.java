@@ -1,7 +1,10 @@
 package com.fvi.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class CenterTextAlignment extends TextAlignmentBase {
@@ -12,36 +15,20 @@ public class CenterTextAlignment extends TextAlignmentBase {
 
     @Override
     public String format(String input) {
-        String[] parts = input.split("(?<=\\G.{" + columnWidth + "})");
-        List<String> list = Arrays.asList(parts);
 
-        List<String> formatted = list.stream().map(e ->
+        List<String> matchList = new ArrayList<String>();
+        Pattern regex = Pattern.compile(".{1," + columnWidth + "}(?:\\s|$)", Pattern.DOTALL);
+        Matcher regexMatcher = regex.matcher(input);
+        while (regexMatcher.find()) {
+            matchList.add(regexMatcher.group());
+        }
+
+        List<String> formatted = matchList.stream().map(e ->
                 center(e, columnWidth))
                 .collect(Collectors.toList());
 
         return String.join("\n", formatted);
     }
 
-    private String center(String str, final int size) {
-        if (str == null || size <= 0) {
-            return str;
-        }
-        final int strLen = str.length();
-        final int pads = size - strLen;
-        if (pads <= 0) {
-            return str;
-        }
-        str = leftPad(str, strLen + pads / 2);
-        str = rightPad(str, size);
-        return str;
-    }
-
-    private String leftPad(String inputString, int length) {
-        return String.format("%1$" + length + "s", inputString);
-    }
-
-    private String rightPad(String inputString, int length) {
-        return String.format("%1$-" + length + "s", inputString);
-    }
 
 }

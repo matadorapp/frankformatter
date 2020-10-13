@@ -12,15 +12,15 @@ public class LeftTextAlignmentTest {
     void testLeftAlignmentWithcolumnWidth10() {
         TextAlignment alignment = new LeftTextAlignment(10);
 
-        String test = "This text \nshould be \nleft      \naligned ";
-        assertEquals(alignment.format(input), test, "fix word-wrap");
+        String test = "This text \nshould be \nleft      \naligned   ";
+        assertEquals(alignment.format(input), test);
     }
 
     @Test
     void testLeftAlignmentWithcolumnWidth20() {
         TextAlignment alignment = new LeftTextAlignment(20);
 
-        String test = "This text should be \nleft aligned ";
+        String test = "This text should be \nleft aligned        ";
         assertEquals(alignment.format(input), test);
     }
 

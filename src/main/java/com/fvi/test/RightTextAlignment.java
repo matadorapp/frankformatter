@@ -1,7 +1,10 @@
 package com.fvi.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RightTextAlignment extends TextAlignmentBase {
@@ -16,9 +19,18 @@ public class RightTextAlignment extends TextAlignmentBase {
 
     @Override
     public String format(String input) {
-        String[] parts = input.split("(?<=\\G.{" + columnWidth + "})");
-        List<String> list = Arrays.asList(parts);
-        List<String> list2 = list.stream().map(e -> String.format("%" + columnWidth + "s", e.trim())).collect(Collectors.toList());
-        return String.join("\n", list2);
+
+        List<String> matchList = new ArrayList<String>();
+        Pattern regex = Pattern.compile(".{1," + columnWidth + "}(?:\\s|$)", Pattern.DOTALL);
+        Matcher regexMatcher = regex.matcher(input);
+        while (regexMatcher.find()) {
+            matchList.add(regexMatcher.group());
+        }
+
+        List<String> formatted = matchList.stream().map(String::trim).map(e ->
+                leftPad(e, columnWidth))
+                .collect(Collectors.toList());
+
+        return String.join("\n", formatted);
     }
 }

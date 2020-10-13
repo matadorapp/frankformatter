@@ -12,8 +12,8 @@ public class CenterTextAlignmentTest {
     void testCenterAlignmentWithcolumnWidth10() {
         TextAlignment alignment = new CenterTextAlignment(10);
 
-        String test = "This text \nshould be \n center \n aligned ";
-        assertEquals(alignment.format(input), test, "fix word-wrap");
+        String test = "This text \nshould be \n center   \n aligned  ";
+        assertEquals(alignment.format(input), test);
     }
 
     @Test

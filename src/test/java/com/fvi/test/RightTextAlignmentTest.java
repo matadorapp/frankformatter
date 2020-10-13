@@ -13,7 +13,7 @@ public class RightTextAlignmentTest {
         TextAlignment alignment = new RightTextAlignment(10);
 
         String test = " This text\n should be\n     right\n   aligned";
-        assertEquals(alignment.format(input), test, "fix word-wrap");
+        assertEquals(alignment.format(input), test);
     }
 
     @Test
