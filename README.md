@@ -11,9 +11,6 @@ to direct conversation over to structural issues.
 
 I use test-driven development (TDD) as the software development process. 
 
-I have made left/right and center, but not the last two. Incidentally, the 
-test shows that I have not understood width versus padding in the task :-)
-
 ## Test, and run from target 
 ````
 $> mvn clean test
